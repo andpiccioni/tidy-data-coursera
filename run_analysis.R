@@ -1,6 +1,5 @@
 rm(list=ls())			## clean the workspace
 
-
 #1. Merges the training and the test sets to create one data set.
 
 training <- read.table("UCI HAR Dataset/train/X_train.txt", header=F)
@@ -34,25 +33,26 @@ activity$V1[activity$V1 == 5] <- "standing"
 activity$V1[activity$V1 == 6] <- "laying"
 
 mergedata <- data.frame(mergedata, activity) 		## add activity labels column to the dataset
-colnames(mergedata)[80] <- "Activity"			## rename new column
-
+colnames(mergedata)[80] <- "activity"			## rename new column
 
 #4. Appropriately labels the data set with descriptive variable names. 
 
+names(mergedata) <- gsub("[.]","", names(mergedata))
 names(mergedata) <- gsub("tBody","", names(mergedata))		## see the code book for details
-names(mergedata) <- gsub("fBody","Transformed", names(mergedata))	
-names(mergedata) <- gsub("tGravity","Gravity", names(mergedata))
-names(mergedata) <- gsub("Acc",".Acceleration", names(mergedata))
-names(mergedata) <- gsub("Gyro",".Gyroscopic", names(mergedata))
-names(mergedata) <- gsub("meanFreq","weighted.average", names(mergedata))
-names(mergedata) <- gsub("Mag",".Magnitude", names(mergedata))
-names(mergedata) <- gsub("Jerk",".Jerk", names(mergedata))
+names(mergedata) <- gsub("fBody","transformed-", names(mergedata))	
+names(mergedata) <- gsub("tGravity","gravity-", names(mergedata))
+names(mergedata) <- gsub("Acc","acceleration-", names(mergedata))
+names(mergedata) <- gsub("Gyro","gyroscopic-", names(mergedata))
+names(mergedata) <- gsub("meanFreq","weighted-average", names(mergedata))
+names(mergedata) <- gsub("Mag","magnitude-", names(mergedata))
+names(mergedata) <- gsub("Jerk","jerk-", names(mergedata))
 names(mergedata) <- gsub(" () ","", names(mergedata))
-names(mergedata) <- gsub("...X",".X_axis", names(mergedata))
-names(mergedata) <- gsub("...Y",".Y_axis", names(mergedata))
-names(mergedata) <- gsub("...Z",".Z_axis", names(mergedata))
-names(mergedata) <- gsub("mean.","mean", names(mergedata))
-names(mergedata) <- gsub("std.","std", names(mergedata))
+names(mergedata) <- gsub("X","-X-axis", names(mergedata))
+names(mergedata) <- gsub("Y","-Y-axis", names(mergedata))
+names(mergedata) <- gsub("Z","-Z-axis", names(mergedata))
+names(mergedata) <- gsub("mean","mean", names(mergedata))
+names(mergedata) <- gsub("std","standard-deviation", names(mergedata))
+names(mergedata) <- gsub("Body","body-", names(mergedata))
 
 
 #5. From the data set in step 4, creates a second, independent tidy data set
@@ -62,13 +62,10 @@ subject_train <- read.table("UCI HAR Dataset/train/subject_train.txt")
 subject_test <- read.table("UCI HAR Dataset/test/subject_test.txt")
 subjects <- rbind(subject_train, subject_test)		## create single subjects column
 mergedata <- data.frame(mergedata, subjects)		## add subjects column to the dataset
-colnames(mergedata)[81] <- "Subject"			## rename new column
+colnames(mergedata)[81] <- "subject"			## rename new column
 
 ## calculate the mean of each variable, grouped by subject and activity
-tidy_data <- aggregate(mergedata[1:79],by=list(subject=mergedata$Subject, activity=mergedata$Activity), mean)
+tidy_data <- aggregate(mergedata[1:79],by=list(subject=mergedata$subject, activity=mergedata$activity), mean)
 
 ### write txt file
 write.table(tidy_data, "tidy_data.txt", row.names=F)
-
-
-
