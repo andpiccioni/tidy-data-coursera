@@ -47,10 +47,10 @@ How the script works:
 
 The script has been built with R version 3.1.2, on a Windows Vista OS, and uses the basic packages of R.
 It is divided into sections, accordingly with the course project instructions. As a consequence, it has been compiled to run the following operations, in order:
-1. Merges the training and the test sets to create one data set, from the two data files provided (X-train.txt and X_test.txt)
-2. Extracts the measurements on the mean and standard deviation for each measurement, by selecting the variables containing means and stanard deviations. 
-3. Defines descriptive activity names to name the activities in the data set, from the 'activity_labels.txt' file
-4. Appropriately labels the data set with descriptive variable names, by calling 'gsub' multiple times, in order to eliminate dots, underscores and white spaces from the variables'names
+1. Merges the training and the test sets to create one data set, from the two data files provided (X-train.txt and X_test.txt).
+2. Extracts the measurements on the mean and standard deviation for each measurement, by selecting the variables containing means and standard deviations. 
+3. Defines descriptive activity names to name the activities in the data set, from the 'activity_labels.txt' file.
+4. Appropriately labels the data set with descriptive variable names, by calling 'gsub' multiple times, in order to eliminate dots, underscores and white spaces from the variables' names.
 5. Read the subjects id numbers files, in order to create a second, independent tidy data set with the average of each variable for each activity and each subject.
 6. Writes the text file "tidy_data.txt".
 
