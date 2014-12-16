@@ -11,8 +11,7 @@ mergedata <- merge(training, test, all=T)		## create a single dataset
 
 names(mergedata) <- features$V2			## assign variables' names
 
-#2. Extracts only the measurements on the mean and standard deviation for 
-#   each measurement.  
+#2. Extracts only the measurements on the mean and standard deviation for each measurement.  
 
 mergedata_mean <- mergedata[,grep("mean", names(mergedata))]	 ## retrieves "mean" variable only
 mergedata_std <- mergedata[,grep("std", names(mergedata))]		 ## retrieves "std" variable only
@@ -24,7 +23,7 @@ mergedata <- cbind(mergedata_mean, mergedata_std)			## combine the two sets of v
 activity_y <- read.table("UCI HAR Dataset/train/y_train.txt") ## loads activity codes for train data
 test_y <- read.table("UCI HAR Dataset/test/y_test.txt") 	## loads activity codes for test data
 activity <- rbind(activity_y,test_y)				## create single activity codes column
-						
+	
 activity$V1[activity$V1 == 1] <- "walking"		## replaces activity codes with respective labels
 activity$V1[activity$V1 == 2] <- "walking upstairs"
 activity$V1[activity$V1 == 3] <- "walking downstairs"
@@ -55,8 +54,7 @@ names(mergedata) <- gsub("std","standard-deviation", names(mergedata))
 names(mergedata) <- gsub("Body","body-", names(mergedata))
 
 
-#5. From the data set in step 4, creates a second, independent tidy data set
-#   with the average of each variable for each activity and each subject.
+#5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 subject_train <- read.table("UCI HAR Dataset/train/subject_train.txt")
 subject_test <- read.table("UCI HAR Dataset/test/subject_test.txt")
